@@ -21,3 +21,17 @@ app.get("/usuarios", async (req, res) => {
   const user = await prisma.user.findMany();
   res.status(200).json(user);
 });
+
+app.put("/usuarios/:id", async (req, res) => {
+  const user = await prisma.user.update({
+    where: {
+      id: req.params.id,
+    },
+    data: {
+      name: req.body.name,
+      email: req.body.email,
+      age: req.body.age,
+    },
+  });
+  res.status(200).json(user);
+});
